@@ -4,9 +4,7 @@ Use the `.env` file to set up your local website variables including url and dat
 
     cd cli
 
-Run the `add-hosts` script to modify your hosts file and allow for custom domain.
-
-    bash add-hosts.sh
+Add hosts in custom domain manually in /etc/hosts file.
 
 Run the `create-cert` script to create SSL certificates for local https support.
 
@@ -43,11 +41,9 @@ Once you are happy with your setup navigate to the cli folder
 
     cd cli
 
-### Run the two scripts:
+### Run scripts:
 
-    bash add-hosts.sh
-
-This will add a hosts file entry for your site url so that you can access it with your custom url instead of "localhost"
+Add hosts in custom domain manually in /etc/hosts file.
 
     bash create-cert.sh
 

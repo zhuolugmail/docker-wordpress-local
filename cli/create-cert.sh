@@ -6,7 +6,9 @@ source "../.env"
 
 DOMAIN=$(echo "$DOMAIN")
 
-mkcert -install "${DOMAIN}"
+mkcert -install
+mkcert "*.${DOMAIN}"
+mkcert "${DOMAIN}"
 
 mkdir -p ../certs
 
