@@ -29,7 +29,8 @@ check if you have it by using:
 
     mkcert --version
 
-if you do not, you can install with homebrew:
+if you do not, you need to install libnss3-tools.
+you'll also need to install mkcert, you can install with homebrew:
 
     brew install mkcert
 
