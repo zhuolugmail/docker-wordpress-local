@@ -33,7 +33,8 @@ services:
   wordpress:
     depends_on: 
       - mysql
-    image: wordpress:latest
+    image: wordpress-local
+    build: ./wordpress-build
     container_name: ${APP_NAME}-wordpress
     restart: always
     volumes: 
