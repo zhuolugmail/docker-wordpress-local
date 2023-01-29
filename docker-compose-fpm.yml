@@ -8,7 +8,7 @@ services:
       - '443:443'
     volumes:
       - ./wordpress:/var/www/html
-      - ./nginx/:/etc/nginx/templates/
+      - ./nginx/default-fpm.conf.conf:/etc/nginx/templates/default.conf.conf
       - ./certs:/etc/certs
     environment:
       - "NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf"
@@ -34,8 +34,8 @@ services:
   wordpress:
     depends_on: 
       - mysql
-    image: wordpress-local
-    build: ./wordpress-build
+    image: wordpress-fpm
+    build: ./wordpress-build/fpm
     container_name: ${APP_NAME}-wordpress
     restart: always
     volumes: 
