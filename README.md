@@ -59,3 +59,28 @@ Now you are ready to go! Change directories back one:
 Run docker compose and the images will be downloaded and your local instance will be setup and accessible at your custom url.
 
     docker-compose up
+
+
+# Additional Notes
+
+Some of the modules were missing in the original setup.  We have to build our
+own image to include pdo-mysql.  Otherwise woocommerce may crash due to
+mailpoet module error.  Docker build directories are in wordpress-build
+
+Fixed several issues when nginx container is involved.
+ - Nginx blocks large files
+ - Nginx timeout is too short, cause some demo import fail
+
+Realized we don't have to use nginx for SSL as you can configure apache
+for SSL.  Original wordpress image has apache instance running already.
+
+In the process, created several docker compose files for different configuration
+variations
+ - docker-compose-nginx.yml is from the original setup
+    nginx <-> apache and wordpress <-> mysql
+ - docker-compose-fpm.yml uses wordpress fpm image that does not have apache
+    nginx <-> wordpress with fpm <-> mysql
+ - docker-compose-apachessl.yml removes nginx frontend, use apache for ssl
+    apache (configured to use ssl) and wordpress <-> mysql
+
+To use these docker-compose yml files, you can create a symbolic link docker-compos.yml to point one of these files.
