@@ -2,8 +2,6 @@ version: '3.6'
 services:
 
   wordpress:
-    depends_on: 
-      - mysql
     image: wordpress-apachessl
     ports:
       - '443:443'
