@@ -1,9 +1,4 @@
-FROM wordpress:latest
+FROM wordpress:6.1.1-apache
 
 RUN docker-php-ext-install pdo_mysql
-
-CMD  a2enmod ssl; \
-     a2ensite default-ssl; \
-     service apache2 restart; \
-     service apache2 stop; \
-     apache2-foreground
+COPY ./docker-entrypoint.sh /usr/local/bin/
