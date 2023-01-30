@@ -1,0 +1,49 @@
+version: '3.6'
+services:
+  mysql:
+    # Uncomment the below line for m1 macs
+    # platform: linux/x86_64
+    image: mysql:8.0
+    container_name: ${APP_NAME}-mysql
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+  wordpress:
+    depends_on: 
+      - mysql
+    image: wordpress-apachessl
+    ports:
+      - '443:443'
+    build: ./wordpress-build/apachessl
+    container_name: ${APP_NAME}-wordpress
+    restart: always
+    volumes: 
+      - ./wordpress:/var/www/html
+      - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./certs/cert.pem:/etc/ssl/certs/ssl-cert-snakeoil.pem:ro
+      - ./certs/key.pem:/etc/ssl/private/ssl-cert-snakeoil.key:ro
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: ${DB_NAME}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ${APP_NAME}-phpmyadmin
+    volumes:
+      - ./config/phpmyadmin.ini:/usr/local/etc/php/conf.d/phpmyadmin.ini
+    environment:
+      PMA_HOST: "${DB_HOST}"
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    ports:
+      - '8080:80'
+    links:
+      - mysql:mysql
