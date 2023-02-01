@@ -2,13 +2,13 @@ version: '3.6'
 services:
 
   wordpress:
-    image: wordpress-apachessl
+    image: wordpress-sqlite
     ports:
       - '443:443'
-    build: ./wordpress-build/apachessl
+    build: ./wordpress-build/sqlite
     container_name: ${APP_NAME}-wordpress
     restart: always
-    volumes: 
+    volumes:
       - ./wordpress:/var/www/html
       - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./certs/cert.pem:/etc/ssl/certs/ssl-cert-snakeoil.pem:ro
