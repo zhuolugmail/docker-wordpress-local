@@ -6,7 +6,7 @@ Use the `.env` file to set up your local website variables including url and dat
 
 Add hosts in custom domain manually in /etc/hosts file.
 
-Run the `create-cert` script to create SSL certificates for local https support.
+Optional: If you want to use https, Run the `create-cert` script to create SSL certificates for local https support.
 
     bash create-cert.sh
 
@@ -21,7 +21,7 @@ You should now have access to the local site dashboard and SQL database using th
 
 # Detailed Instructions
 
-## Required setup
+## Setup (optional: if you wnat https)
 
 In order to use this you will need docker desktop installed and the mkcert utility for creating ssl certificates
 
@@ -34,7 +34,7 @@ you'll also need to install mkcert, you can install with homebrew:
 
     brew install mkcert
 
-## Getting Started
+## Getting Started (optional: if you want https)
 
 Use the .env file to define your variables. Here you can set up what you want your local site url to be as well as all the database settings that will be applied to your wp-config.php file.
 
@@ -42,7 +42,7 @@ Once you are happy with your setup navigate to the cli folder
 
     cd cli
 
-### Run scripts:
+### Run scripts (optional: if you want https):
 
 Add hosts in custom domain manually in /etc/hosts file.
 
@@ -58,7 +58,7 @@ Now you are ready to go! Change directories back one:
 
 Run docker compose and the images will be downloaded and your local instance will be setup and accessible at your custom url.
 
-    docker-compose up
+    docker-compose -f <docker-compos-...> up
 
 
 # Additional Notes
@@ -79,6 +79,8 @@ variations
  - docker-compose-nginx.yml is from the original setup
     nginx <-> apache and wordpress <-> mysql
  - docker-compose-fpm.yml uses wordpress fpm image that does not have apache
+    nginx <-> wordpress with fpm <-> mysql
+ - docker-compose-fpm-nossl.yml uses wordpress fpm image that does not have apache and without https
     nginx <-> wordpress with fpm <-> mysql
  - docker-compose-apachessl.yml removes nginx frontend, use apache for ssl
     apache (configured to use ssl) and wordpress <-> mysql
